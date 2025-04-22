@@ -1,24 +1,28 @@
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 
+const TOKEN_KEY = 'id_token';
+
 class AuthService {
-  getProfile() {
-    // TODO: return the decoded token
+  /**
+   * TODO: return the decoded token
+   */
+  getProfile(): JwtPayload | null {
     const token = this.getToken();
     return token ? jwtDecode<JwtPayload>(token) : null;
   }
+
+  /**
+   * TODO: return a value that indicates if the user is logged in
+   */
+  loggedIn(): boolean {
+    const token = this.getToken();
+    return !!token && !this.isTokenExpired(token);
   }
 
-  loggedIn() {
-    // TODO: return a value that indicates if the user is logged in
-    const token = this.getToken();
-    if (!token || typeof token === 'undefined') {
-      return false;
-    }
-    return !this.isTokenExpired(token);
-  }
-  
-  isTokenExpired(token: string) {
-    // TODO: return a value that indicates if the token is expired
+  /**
+   * TODO: return a value that indicates if the token is expired
+   */
+  isTokenExpired(token: string): boolean {
     try {
       const { exp } = jwtDecode<{ exp?: number }>(token);
       if (!exp) return false;            // treat token with no exp as non‑expired
@@ -28,29 +32,31 @@ class AuthService {
     }
   }
 
-
-  getToken(): string {
-    // TODO: return the token
-    const token = localStorage.getItem('id_token');
+  /**
+   * TODO: return the token
+   */
+  getToken(): string | null {
+    return localStorage.getItem(TOKEN_KEY);
   }
 
-  login(idToken: string) {
-    // TODO: set the token to localStorage
-    // TODO: redirect to the home page
+  /**
+   * TODO: set the token to localStorage
+   * TODO: redirect to the home page
+   */
+  login(idToken: string): void {
     localStorage.setItem(TOKEN_KEY, idToken);
-    window.location.assign('/');    
+    window.location.assign('/');
   }
 
-  logout() {
-    // TODO: remove the token from localStorage
-    // TODO: redirect to the login page
+  /**
+   * TODO: remove the token from localStorage
+   * TODO: redirect to the login page
+   */
+  logout(): void {
     localStorage.removeItem(TOKEN_KEY);
     window.location.assign('/login');
   }
-
+}
 
 export default new AuthService();
-function loggedIn() {
-  throw new Error('Function not implemented.');
-}
 
