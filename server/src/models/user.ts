@@ -10,6 +10,12 @@ interface UserAttributes {
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
+  passwordHash(password: any, passwordHash: any) {
+    throw new Error('Method not implemented.');
+  }
+  static findOne(arg0: { where: { username: any; }; }) {
+    throw new Error('Method not implemented.');
+  }
   public id!: number;
   public username!: string;
   public password!: string;

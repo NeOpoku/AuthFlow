@@ -12,6 +12,9 @@ interface TicketAttributes {
 interface TicketCreationAttributes extends Optional<TicketAttributes, 'id'> {}
 
 export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> implements TicketAttributes {
+  static bulkCreate(arg0: { name: string; status: string; description: string; assignedUserId: number; }[]) {
+    throw new Error('Method not implemented.');
+  }
   public id!: number;
   public name!: string;
   public status!: string;
